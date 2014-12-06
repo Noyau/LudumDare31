@@ -16,6 +16,7 @@ public class CursorScript : MonoBehaviour {
 	}
 
 	public GameObject lastPath;
+	public ParticleSystem particles;
 	private Vector3 pointerPosition;
 
 	// Use this for initialization
@@ -24,6 +25,7 @@ public class CursorScript : MonoBehaviour {
 		Screen.showCursor = false;
 		this.lastPath = null;
 		this.pointerPosition = Vector3.zero;
+		this.particles.Stop ();
 	}
 	
 	// Update is called once per frame
@@ -39,8 +41,14 @@ public class CursorScript : MonoBehaviour {
 
 		transform.localPosition = mousePosition;
 
-		if (Input.GetMouseButtonDown (0) && lastPath) {
-						Debug.Log ("Holy Shit, It Works!");
-				}
+		if (lastPath) {
+						if (!particles.isPlaying)
+								particles.Play ();
+				
+						if (Input.GetMouseButtonDown (0)) {
+								Debug.Log ("Holy Shit, It Works!");
+						}
+				} else
+						particles.Stop ();
 	}
 }

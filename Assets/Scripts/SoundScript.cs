@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (AudioSource))]
+[ RequireComponent (typeof ( AudioSource ) ) ]
 public class SoundScript : MonoBehaviour
 {
 

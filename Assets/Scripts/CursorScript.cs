@@ -20,17 +20,23 @@ public class CursorScript : MonoBehaviour
 		return instance;
 	}
 
-	public GameObject lastPath;
+	public GameObject lastPath = null;
 	public ParticleSystem particles;
-	private Vector3 pointerPosition;
+	private PlayerControllerScript player = null;
 
 	void Start ()
 	{
 		instance = this;
 		Screen.showCursor = false;
-		this.lastPath = null;
-		this.pointerPosition = Vector3.zero;
 		this.particles.Stop ();
+	}
+
+	void Awake ()
+	{
+		this.player = FindObjectOfType ( typeof ( PlayerControllerScript ) ) as PlayerControllerScript;
+
+		if ( !this.player )
+			throw new System.Exception ( "That's embarassing, their is no player" );
 	}
 
 	void Update ()
@@ -38,11 +44,9 @@ public class CursorScript : MonoBehaviour
 		CircleCollider2D cursorCollider = GetComponent < CircleCollider2D > ();
 		Vector3 mousePosition = Input.mousePosition;
 		Vector3 cursorPosition = Camera.main.ScreenToWorldPoint ( mousePosition );
+		cursorPosition.x += cursorCollider.center.x;
+		cursorPosition.y += cursorCollider.center.y;
 		cursorPosition.z = 0.0f;
-
-		this.pointerPosition = cursorPosition;
-		this.pointerPosition.x += cursorCollider.center.x;
-		this.pointerPosition.y += cursorCollider.center.y;
 
 		if ( lastPath )
 		{
@@ -50,7 +54,12 @@ public class CursorScript : MonoBehaviour
 				particles.Play ();
 
 			if ( Input.GetMouseButtonDown ( 0 ) )
-				Debug.Log ("Holy Shit, It Works!");
+			{
+				if ( lastPath.tag == "Zone" )
+					Debug.Log ( "Waaarp ZaaaOooonne!" );
+				else if ( lastPath.tag == "Ground" )
+					player.MoveToTarget ( cursorPosition );
+			}
 		}
 		else
 			particles.Stop ();

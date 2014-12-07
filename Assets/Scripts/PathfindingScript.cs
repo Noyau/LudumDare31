@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(PolygonCollider2D))]
+[ RequireComponent ( typeof ( PolygonCollider2D ) ) ]
 public class PathfindingScript : MonoBehaviour
 {
 
-	private CursorScript cursor;
+	private CursorScript cursor = null;
 
-	// Use this for initialization
-	void Start () {
+	void Awake () {
 		this.cursor = CursorScript.GetSingleton ();
 	}
 

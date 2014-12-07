@@ -2,7 +2,8 @@
 using System.Collections;
 
 [RequireComponent (typeof (AudioSource))]
-public class SoundScript : MonoBehaviour {
+public class SoundScript : MonoBehaviour
+{
 
 	public float defaultVolume = 0.25f;
 	public float volumeFadeRatio = 0.01f;
@@ -45,7 +46,7 @@ public class SoundScript : MonoBehaviour {
 		{
 			if ( soundEffects.Length < 1)
 				throw new System.Exception ( "How could you play any sound without clip(s) ?");
-				
+
 			this.lastDelay = Random.Range ( minDelay, maxDelay );
 
 			this.source.volume = defaultVolume;

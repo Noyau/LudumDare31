@@ -2,7 +2,8 @@
 using System.Collections;
 
 [RequireComponent (typeof(PolygonCollider2D))]
-public class PathfindingScript : MonoBehaviour {
+public class PathfindingScript : MonoBehaviour
+{
 
 	private CursorScript cursor;
 
